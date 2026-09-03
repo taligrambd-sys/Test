@@ -1,1 +1,1 @@
-// Deprecated: Switched to Groovy build.gradle
+// Disabled to prevent conflicts with build.gradle

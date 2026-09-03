@@ -1,1 +1,1 @@
-// Deprecated: Switched to Groovy app/build.gradle
+// Disabled to prevent conflicts with app/build.gradle
