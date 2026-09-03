@@ -1,0 +1,42 @@
+name: Build Kaal Player APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Clean Kotlin DSL Files to Avoid Conflicts
+      run: |
+        rm -f settings.gradle.kts
+        rm -f build.gradle.kts
+        rm -f app/build.gradle.kts
+        echo "Removed duplicate Kotlin DSL files to prevent Gradle conflicts."
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Kaal-Player-Debug-APK
+        path: app/build/outputs/apk/debug/app-debug.apk

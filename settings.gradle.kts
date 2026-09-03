@@ -1,0 +1,1 @@
+// Deprecated: Switched to Groovy settings.gradle
